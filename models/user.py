@@ -11,3 +11,9 @@ class User(BaseModel):
     def __init__(self, *args, **kwargs):
         """Initialize User instance"""
         super().__init__(*args, **kwargs)
+
+    def __repr__(self):
+        return f"[User] ({self.id}) {self.__dict__}"
+
+    def __str__(self):
+        return f"[User] ({self.id}) {self.__dict__}"

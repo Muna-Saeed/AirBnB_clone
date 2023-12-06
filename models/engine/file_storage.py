@@ -4,6 +4,9 @@ from json.decoder import JSONDecodeError
 from datetime import datetime
 import json
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
 
 
 class FileStorage:
@@ -43,7 +46,7 @@ class FileStorage:
             with open(FileStorage.__file_path, "r") as f:
                 deserialized = json.load(f)
             FileStorage.__objects = {
-                key: BaseModel(**val) if val['__class__'] == 'User' else BaseModel(**val)
+                key: globals()[val['__class__']](**val)
                 for key, val in deserialized.items()
             }
         except (FileNotFoundError, JSONDecodeError):

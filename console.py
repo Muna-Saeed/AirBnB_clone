@@ -3,7 +3,7 @@ import cmd
 import sys
 from models.base_model import BaseModel
 from models import storage
-
+from models.state import State
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
@@ -133,7 +133,12 @@ class HBNBCommand(cmd.Cmd):
                 
         else:
             print("** class name missing **")
-
-
+    def default(self, line):
+        cl_names = ["State", "User", "City"]
+        arg = line.split(".")
+        if arg[0] in cl_names and arg[1] == "all()":
+            self.do_all(arg[0])
+        else:
+            super().default(line)
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

@@ -19,17 +19,24 @@ class FileStorage:
     def all(self):
         return self.__objects
 
-    def new(self, obj):
-        key = f"{type(obj).__name__}.{obj.id}"
-        FileStorage.__objects[key] = obj
+    def new(self, ob):
+        key = f"{type(ob).__name__}.{ob.id}"
+        FileStorage.__objects[key] = ob
 
     def save(self):
-        serialized = {
+        formated = {
             key: val.to_dict()
             for key, val in self.__objects.items()
         }
         with open(FileStorage.__file_path, "w") as f:
-            json.dump(serialized, f, default=lambda o: o.isoformat() if isinstance(o, datetime) else o)
+            json.dump(formated, f, default=lambda o: o.isoformat() if isinstance(o, datetime) else o)
+
+    def set_attr(self, obj, attr, value):
+        setattr(obj, attr, value)
+        key  = f"{type(obj).__name__}.{obj.id}"
+        FileStorage.__objects[key] = obj
+        FileStorage.__objects[key].updated_at = datetime.now()
+        self.save()
 
     def reload(self):
         try:
@@ -40,5 +47,4 @@ class FileStorage:
                 for key, val in deserialized.items()
             }
         except (FileNotFoundError, JSONDecodeError):
-            # No need for error handling here
             pass

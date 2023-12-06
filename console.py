@@ -6,6 +6,9 @@ from models.user import User
 from models import storage
 from models.state import State
 from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
@@ -137,7 +140,7 @@ class HBNBCommand(cmd.Cmd):
     def default(self, line):
         if not (sys.stdin.isatty()):
             print()
-        cl_names = ["State", "User", "City"]
+        cl_names = ["State", "User", "City", "Review", "Place", "Amenity"]
         arg = line.split(".")
         if arg[0] in cl_names and arg[1] == "all()":
             self.do_all(arg[0])

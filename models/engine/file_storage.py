@@ -43,7 +43,7 @@ class FileStorage:
             with open(FileStorage.__file_path, "r") as f:
                 deserialized = json.load(f)
             FileStorage.__objects = {
-                key: BaseModel(**val)
+                key: BaseModel(**val) if val['__class__'] == 'User' else BaseModel(**val)
                 for key, val in deserialized.items()
             }
         except (FileNotFoundError, JSONDecodeError):

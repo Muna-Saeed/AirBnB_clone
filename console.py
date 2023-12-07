@@ -18,6 +18,8 @@ class HBNBCommand(cmd.Cmd):
 
     def emptyline(self):
         """Called when an empty line is entered."""
+        if not sys.stdin.isatty():
+            print()
 
     def do_help(self, arg):
         """ help command """
@@ -29,7 +31,7 @@ class HBNBCommand(cmd.Cmd):
             print("=" * 40)
             print("EOF  help  quit")
             return
-        super().do_help(arg)
+        self.do_help(arg)
 
     def do_quit(self, arg):
         """ Exit the console."""
@@ -77,6 +79,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """ display all """
+        if not (sys.stdin.isatty()):
+            print()
         if not arg:
             arr = []
             all = storage.all()
@@ -100,6 +104,9 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
     def do_destroy(self, args):
+        """ destroy obj """
+        if not (sys.stdin.isatty()):
+            print()
         if not args:
             print("** class name missing **")
             return
@@ -147,60 +154,33 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class name missing **")
 
-    def default(self, line):
-        """ override default """
-        if not (sys.stdin.isatty()):
-            print()
-        super().default(line)
-
     def do_User(self, args):
         """ User.x() """
-        try:
-            eval(f"User{args}")
-        except Exception as e:
-            print(e)
+        self.manage("User", args)
 
     def do_Review(self, args):
         """ Review.x() """
-        try:
-            eval(f"Review{args}")
-        except Exception as e:
-            print(e)
+        self.manage("Review", args)
 
     def do_City(self, args):
         """ City.x() """
-        try:
-            eval(f"City{args}")
-        except Exception as e:
-            print(e)
+        self.manage("City", args)
 
     def do_Amenity(self, args):
         """ Amenity.x() """
-        try:
-            eval(f"Amenity{args}")
-        except Exception as e:
-            print(e)
+        self.manage("Amenity", args)
 
     def do_State(self, args):
         """ State """
-        try:
-            eval(f"State{args}")
-        except Exception as e:
-            print(e)
+        self.manage("State", args)
 
     def do_BaseModel(self, args):
         """ BaseModel """
-        try:
-            eval(f"BaseModel{args}")
-        except Exception as e:
-            print(e)
+        self.manage("BaseModel", args)
 
     def do_Place(self, args):
         """ place """
-        try:
-            eval(f"Place{args}")
-        except Exception as e:
-            print(e)
+        self.manage("Place", args)
 
     def count(self, name):
         """ counts objecets """
@@ -212,12 +192,16 @@ class HBNBCommand(cmd.Cmd):
                 count += 1
         print(count)
 
-    def parser(self, st):
-        """ split """
-        one = st.split(".")[1]
-        d = one.split("(")[1].split(")")[0]
-        arg = one.split("(")[0]
-        return (arg, d)
+    def manage(self, st, args):
+        if not (sys.stdin.isatty()):
+            print()
+        try:
+            if args:
+                eval(f"{st}{args}")
+            else:
+                print(" ** attribute missing **")
+        except Exception as e:
+            print(e)
 
 
 if __name__ == '__main__':

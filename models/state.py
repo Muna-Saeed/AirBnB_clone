@@ -8,8 +8,6 @@ class State(BaseModel):
     """class State"""
     name = ""
 
-
     def __init__(self, *args, **kwargs):
         """Initialize User instance"""
         super().__init__(*args, **kwargs)
-

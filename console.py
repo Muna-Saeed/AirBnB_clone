@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+""" console.py """
 import cmd
 import sys
 from models.base_model import BaseModel
@@ -10,13 +11,17 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
+
 class HBNBCommand(cmd.Cmd):
+    """ main console """
     prompt = "(hbnb) "
 
     def emptyline(self):
         """Called when an empty line is entered."""
 
     def do_help(self, arg):
+        """ help command """
+
         if len(arg) == 0:
             if not (sys.stdin.isatty()):
                 print()
@@ -28,10 +33,12 @@ class HBNBCommand(cmd.Cmd):
 
     def do_quit(self, arg):
         """ Exit the console."""
+
         return True
 
     def do_EOF(self, arg):
         """ Exit on Ctrl-D """
+
         print()
         return True
 
@@ -40,6 +47,7 @@ class HBNBCommand(cmd.Cmd):
         return stop
 
     def do_create(self, arg):
+        """ create new object """
         if not arg:
             print("** class name missing **")
             return
@@ -51,6 +59,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
     def do_show(self, args):
+        """ shows the object """
+
         if not (sys.stdin.isatty()):
             print()
         if not args:
@@ -65,8 +75,8 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** instance id missing **")
 
-
     def do_all(self, arg):
+        """ display all """
         if not arg:
             arr = []
             all = storage.all()
@@ -103,6 +113,7 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
 
     def get_obj(self, ls):
+        """ gets an object """
         if ls[0] in globals():
             all = storage.all()
             for key in all.keys():
@@ -115,6 +126,7 @@ class HBNBCommand(cmd.Cmd):
         return False
 
     def do_update(self, arg):
+        """ update """
         if arg:
             args = arg.split()
             ln = len(args)
@@ -132,37 +144,66 @@ class HBNBCommand(cmd.Cmd):
                         storage.set_attr(obj, args[2], args[3])
             else:
                 print("** class doesn't exist **")
-                
         else:
             print("** class name missing **")
 
     def default(self, line):
+        """ override default """
         if not (sys.stdin.isatty()):
             print()
         super().default(line)
+
     def do_User(self, args):
-        eval(f"User{args}")
+        """ User.x() """
+        try:
+            eval(f"User{args}")
+        except Exception as e:
+            print(e)
 
     def do_Review(self, args):
-        eval(f"Review{args}")
+        """ Review.x() """
+        try:
+            eval(f"Review{args}")
+        except Exception as e:
+            print(e)
 
     def do_City(self, args):
-        eval(f"City{args}")
+        """ City.x() """
+        try:
+            eval(f"City{args}")
+        except Exception as e:
+            print(e)
 
     def do_Amenity(self, args):
-        eval(f"Amenity{args}")
+        """ Amenity.x() """
+        try:
+            eval(f"Amenity{args}")
+        except Exception as e:
+            print(e)
 
     def do_State(self, args):
-        eval(f"State{args}")
+        """ State """
+        try:
+            eval(f"State{args}")
+        except Exception as e:
+            print(e)
 
     def do_BaseModel(self, args):
-        eval(f"BaseModel{args}")
-    
-    def do_Place(self, args):
-        eval(f"Place{args}")
+        """ BaseModel """
+        try:
+            eval(f"BaseModel{args}")
+        except Exception as e:
+            print(e)
 
+    def do_Place(self, args):
+        """ place """
+        try:
+            eval(f"Place{args}")
+        except Exception as e:
+            print(e)
 
     def count(self, name):
+        """ counts objecets """
         all = storage.all()
         count = 0
         for key in all.keys():
@@ -170,12 +211,14 @@ class HBNBCommand(cmd.Cmd):
             if sp[0] == name:
                 count += 1
         print(count)
+
     def parser(self, st):
+        """ split """
         one = st.split(".")[1]
         d = one.split("(")[1].split(")")[0]
         arg = one.split("(")[0]
         return (arg, d)
-        
-        
+
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """ place.py """
 from models.base_model import BaseModel
+import models
 
 
 class Place(BaseModel):
@@ -16,3 +17,8 @@ class Place(BaseModel):
     latitude = 0.0        # float: 0.0
     longitude = 0.0       # float: 0.0
     amenity_ids = []       # list of string: empty list (will be the list of Amenity.id later)
+
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+

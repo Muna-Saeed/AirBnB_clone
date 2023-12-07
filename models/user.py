@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 from models.base_model import BaseModel
+import models
+
 
 class User(BaseModel):
     """User class"""
@@ -8,12 +10,7 @@ class User(BaseModel):
     first_name = ""
     last_name = ""
 
+
     def __init__(self, *args, **kwargs):
         """Initialize User instance"""
         super().__init__(*args, **kwargs)
-
-    def __repr__(self):
-        return f"[User] ({self.id}) {self.__dict__}"
-
-    def __str__(self):
-        return f"[User] ({self.id}) {self.__dict__}"

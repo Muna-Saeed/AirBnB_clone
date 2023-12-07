@@ -28,7 +28,6 @@ class HBNBCommand(cmd.Cmd):
 
     def do_quit(self, arg):
         """ Exit the console."""
-        print("quiting:")
         return True
 
     def do_EOF(self, arg):
@@ -140,14 +139,28 @@ class HBNBCommand(cmd.Cmd):
     def default(self, line):
         if not (sys.stdin.isatty()):
             print()
-        cl_names = ["State", "User", "City", "Review", "Place", "Amenity"]
-        arg = line.split(".")
-        if arg[0] in cl_names and arg[1] == "all()":
-            self.do_all(arg[0])
-        elif arg[0] in cl_names and arg[1] == "count()":
-            self.count(arg[0])
-        else:
-            super().default(line)
+        super().default(line)
+    def do_User(self, args):
+        eval(f"User{args}")
+
+    def do_Review(self, args):
+        eval(f"Review{args}")
+
+    def do_City(self, args):
+        eval(f"City{args}")
+
+    def do_Amenity(self, args):
+        eval(f"Amenity{args}")
+
+    def do_State(self, args):
+        eval(f"State{args}")
+
+    def do_BaseModel(self, args):
+        eval(f"BaseModel{args}")
+    
+    def do_Place(self, args):
+        eval(f"Place{args}")
+
 
     def count(self, name):
         all = storage.all()
@@ -157,6 +170,12 @@ class HBNBCommand(cmd.Cmd):
             if sp[0] == name:
                 count += 1
         print(count)
+    def parser(self, st):
+        one = st.split(".")[1]
+        d = one.split("(")[1].split(")")[0]
+        arg = one.split("(")[0]
+        return (arg, d)
+        
         
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

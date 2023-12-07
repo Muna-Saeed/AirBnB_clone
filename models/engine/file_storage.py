@@ -43,13 +43,20 @@ class FileStorage:
         FileStorage.__objects[key].updated_at = datetime.now()
         self.save()
 
-    def reload(self):
+
+    @classmethod
+    def reload(cls):
         try:
-            with open(FileStorage.__file_path, "r") as f:
+            with open(cls.__file_path, "r") as f:
                 deserialized = json.load(f)
-            FileStorage.__objects = {
-                key: globals()[val['__class__']](**val)
-                for key, val in deserialized.items()
-            }
+                for key, val in deserialized.items():
+                    class_name = val['__class__']
+                    class_type = globals()[class_name]
+
+                    if hasattr(class_type, 'count_ob'):
+                        class_type.count_ob += 1
+
+                    cls.__objects[key] = class_type(**val)
         except (FileNotFoundError, JSONDecodeError):
             pass
+

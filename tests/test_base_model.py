@@ -4,6 +4,7 @@ import unittest
 from datetime import datetime
 from models.base_model import BaseModel
 
+
 class TestBaseModel(unittest.TestCase):
     """Test cases for the BaseModel class."""
 
@@ -18,11 +19,11 @@ class TestBaseModel(unittest.TestCase):
 
     def test_str_method(self):
         """Test the __str__ method."""
-        my_model = BaseModel()
-        my_model.name = "My First Model"
-        my_model.my_number = 89
-        expected_str = "[BaseModel] ({}) {}".format(my_model.id, my_model.__dict__)
-        self.assertEqual(str(my_model), expected_str)
+        my = BaseModel()
+        my.name = "My First Model"
+        my.my_number = 89
+        expected_str = "[BaseModel] ({}) {}".format(my.id, my.__dict__)
+        self.assertEqual(str(my), expected_str)
 
     def test_save_method(self):
         """Test the save method."""
@@ -41,4 +42,3 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(type(my_model_json['updated_at']), str)
         self.assertEqual(type(my_model_json['__class__']), str)
         self.assertEqual(my_model_json['__class__'], 'BaseModel')
-

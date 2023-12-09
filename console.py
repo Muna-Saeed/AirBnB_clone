@@ -21,18 +21,6 @@ class HBNBCommand(cmd.Cmd):
         if not sys.stdin.isatty():
             print()
 
-    def do_help(self, arg):
-        """ help command """
-
-        if len(arg) == 0:
-            if not (sys.stdin.isatty()):
-                print()
-            print("\nDocumented commands (type help <topic>):")
-            print("=" * 40)
-            print("EOF  help  quit")
-            return
-        self.do_help(arg)
-
     def do_quit(self, arg):
         """ Exit the console."""
 

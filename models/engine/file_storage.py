@@ -31,7 +31,6 @@ class FileStorage:
 
     def new(self, ob):
         """ adds new object """
-
         key = f"{type(ob).__name__}.{ob.id}"
         FileStorage.__objects[key] = ob
 

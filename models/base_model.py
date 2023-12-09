@@ -5,7 +5,6 @@ base_model.py
 This module defines the BaseModel class, a fundamental class
  for object-relational mapping (ORM).
 """
-
 import uuid
 from datetime import datetime
 import models
@@ -13,7 +12,7 @@ import models
 
 class BaseModel:
     """
-    BaseModel class represents the base model for the ORM system.
+    BaseModel class represents the base model for the.
 
     Attributes:
         - id (str): A unique identifier for each instance.

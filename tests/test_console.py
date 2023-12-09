@@ -45,7 +45,17 @@ class TestHBNBCommand(unittest.TestCase):
             HBNBCommand().onecmd("help")
             output = mock_stdout.getvalue().strip()
             self.assertEqual(output, output)
-
+    
+    def test_update(self):
+        """ test update """
+        with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
+            obj_id = str(uuid.uuid4())
+            self.cmd.onecmd(f"User.create(id='{obj_id}')")
+            self.cmd.onecmd(f"User.update('{obj_id}', {{'first_name': 'John', 'age': 30}})")
+            self.cmd.onecmd(f"User.show('{obj_id}')")
+            output = mock_stdout.getvalue().strip()
+            self.assertIn("John", output)
+            self.assertIn("30", output)
 
 if __name__ == "__main__":
     unittest.main()

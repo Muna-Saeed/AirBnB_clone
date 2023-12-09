@@ -6,7 +6,7 @@ import models
 
 
 class BaseModel:
-    """ base class """
+    """ BaseModel class """
 
     def __init__(self, *args, **kwargs):
         """ initialize """

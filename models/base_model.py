@@ -1,8 +1,5 @@
 #!/usr/bin/python3
-""" 
-base_model.py
-module documentation contaisn BaseModel file
-"""
+""" base_model.py """
 
 import uuid
 from datetime import datetime
@@ -10,19 +7,11 @@ import models
 
 
 class BaseModel:
-    """ 
-        BaseModel class
-        the class is the base of other classes
+    """ BaseModel class
      """
 
     def __init__(self, *args, **kwargs):
-        """ 
-           initialize:
-           if kwargs:
-                    set artribute
-           else:
-               create new instance with id
-         """
+        """ initialize """
         if kwargs:
             self.set_attr(**kwargs)
         else:
@@ -32,10 +21,7 @@ class BaseModel:
             models.storage.new(self)
 
     def set_attr(self, **kwargs):
-        """ 
-            sets attributes or reloaded data
-            loop over theys and set the attribute key: value
-         """
+        """ sets attributes or reloaded data """
         for key, value in kwargs.items():
             if key != '__class__':
                 if key == "created_at" or key == "updated_at":
@@ -43,11 +29,7 @@ class BaseModel:
                 setattr(self, key, value)
 
     def save(self):
-        """ 
-         saves the chanage to file
-         update the the update_at
-         call save to in strorage class
-         """
+        """ saves the chanage to file """
         self.updated_at = datetime.now()
         models.storage.save()
 
@@ -56,11 +38,7 @@ class BaseModel:
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def to_dict(self):
-        """ 
-          object to dictionary
-          loop over the attributes
-          return: return dictionary
-         """
+        """ object to dictionary """
         obj_dict = self.__dict__.copy()
         obj_dict['__class__'] = self.__class__.__name__
         exclude_attributes = ['models', 'storage']
@@ -76,7 +54,7 @@ class BaseModel:
         """ counts the objects of the same class """
         c = 0
         clname = cls.__name__
-        all = models.storage.all()`
+        all = models.storage.all()
         for key in all.keys():
             if key.split(".")[0] == clname:
                 c += 1

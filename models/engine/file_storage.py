@@ -1,5 +1,6 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """ file_storage.py """
+
 from json.decoder import JSONDecodeError
 from datetime import datetime
 import json

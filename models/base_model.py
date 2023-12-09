@@ -140,3 +140,15 @@ class BaseModel:
             models.storage.destroy_object(obj)
             return
         print("** no instance found **")
+
+    @classmethod
+    def update(cls, ids, dict_type):
+        if isinstance(dict_type, dict):
+            for key, value in dict_type.items():
+                obj = cls.get_object(ids)
+                if obj:
+                    models.storage.set_attr(obj, key, value)
+                    return
+                print("** no instance found **")
+        else:
+            print("error not valid dictionnary")

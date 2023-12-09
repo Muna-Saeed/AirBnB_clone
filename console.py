@@ -122,7 +122,7 @@ class HBNBCommand(cmd.Cmd):
         return False
 
     def do_update(self, args):
-        """ Update an instance based on its ID with a dictionary representation """
+        """Update instance based on its ID with a dictionary representation"""
         if args:
             args_list = args.split()
             ln = len(args_list)
@@ -142,7 +142,9 @@ class HBNBCommand(cmd.Cmd):
                     try:
                         update_dict = eval(args_list[-1])
                         if not isinstance(update_dict, dict):
-                            raise ValueError("Invalid dictionary representation")
+                            raise ValueError(
+                                    "Invalid dictionary representation"
+                                    )
                     except (SyntaxError, ValueError) as e:
                         print(f"Error: {e}")
                         return

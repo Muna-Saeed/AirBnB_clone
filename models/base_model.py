@@ -20,7 +20,6 @@ class BaseModel:
 
     def set_attr(self, **kwargs):
         """ sets attributes or reloaded data """
-
         for key, value in kwargs.items():
             if key != '__class__':
                 if key == "created_at" or key == "updated_at":
@@ -29,18 +28,15 @@ class BaseModel:
 
     def save(self):
         """ saves the chanage to file """
-
         self.updated_at = datetime.now()
         models.storage.save()
 
     def __str__(self):
         """ return str reprasentation of object """
-
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def to_dict(self):
         """ object to dictionary """
-
         obj_dict = self.__dict__.copy()
         obj_dict['__class__'] = self.__class__.__name__
         exclude_attributes = ['models', 'storage']
@@ -54,7 +50,6 @@ class BaseModel:
     @classmethod
     def count(cls):
         """ counts the objects of the same class """
-
         c = 0
         clname = cls.__name__
         all = models.storage.all()
@@ -66,7 +61,6 @@ class BaseModel:
     @classmethod
     def all(cls, id=0):
         """ prints all objects that are same class """
-
         all = models.storage.all()
         clsname = cls.__name__
         arr = []
@@ -90,7 +84,6 @@ class BaseModel:
     @classmethod
     def update(cls, id, attr, value):
         """ updates the object """
-
         obj = cls.get_object(id)
         if obj:
             models.storage.set_attr(obj, attr, value)
@@ -100,7 +93,6 @@ class BaseModel:
     @classmethod
     def get_object(cls, id):
         """ gets an object and returns it """
-
         all = models.storage.all()
         clsname = cls.__name__
         for key in all.keys():
@@ -114,7 +106,6 @@ class BaseModel:
     @classmethod
     def destroy(cls, id):
         """ delates and object from the dict objecst and saves """
-
         obj = cls.get_object(id)
         if obj:
             models.storage.destroy_object(obj)

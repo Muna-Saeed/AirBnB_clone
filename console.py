@@ -14,6 +14,7 @@ from models.review import Review
 
 class HBNBCommand(cmd.Cmd):
     """ main console """
+
     prompt = "(hbnb) "
 
     def emptyline(self):
@@ -57,9 +58,9 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         ls = args.split()
-        if (len(ls) > 1):
+        if len(ls) > 1:
             obj = self.get_obj(ls)
-            if (obj):
+            if obj:
                 print(obj)
             return
         else:
@@ -99,9 +100,9 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         ls = args.split()
-        if (len(ls) > 1):
+        if len(ls) > 1:
             obj = self.get_obj(ls)
-            if (obj):
+            if obj:
                 storage.destroy_object(obj)
             return
         else:
@@ -120,23 +121,35 @@ class HBNBCommand(cmd.Cmd):
         print("** class doesn't exist **")
         return False
 
-    def do_update(self, arg):
-        """ update """
-        if arg:
-            args = arg.split()
-            ln = len(args)
-            if args[0] in globals():
-                if ln == 1:
-                    print("** instance id missing *")
-                elif ln == 2:
-                    print(" ** attribute name missing **")
-                elif ln == 3:
-                    print(" ** value missing **")
-                    return
-                else:
-                    obj = self.get_obj(args)
-                    if obj:
-                        storage.set_attr(obj, args[2], args[3])
+    def do_update(self, args):
+        """ Update an instance based on its ID with a dictionary representation """
+        if args:
+            args_list = args.split()
+            ln = len(args_list)
+
+            if ln == 1:
+                print("** class name missing **")
+            elif ln == 2:
+                print("** instance id missing **")
+            elif ln == 3:
+                print("** attribute name missing **")
+            elif ln == 4:
+                print("** value missing **")
+            elif ln > 4:
+                obj = self.get_obj(args_list)
+                if obj:
+                    # Check if the last argument is a valid dictionary
+                    try:
+                        update_dict = eval(args_list[-1])
+                        if not isinstance(update_dict, dict):
+                            raise ValueError("Invalid dictionary representation")
+                    except (SyntaxError, ValueError) as e:
+                        print(f"Error: {e}")
+                        return
+
+                    # Update the object attributes with the dictionary
+                    storage.update_object(obj, update_dict)
+                    obj.save()
             else:
                 print("** class doesn't exist **")
         else:
@@ -192,5 +205,5 @@ class HBNBCommand(cmd.Cmd):
             print(e)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     HBNBCommand().cmdloop()

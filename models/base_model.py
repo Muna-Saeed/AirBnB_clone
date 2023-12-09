@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """ base_model.py """
 import uuid
 from datetime import datetime
@@ -6,7 +6,8 @@ import models
 
 
 class BaseModel:
-    """ BaseModel class """
+    """ BaseModel class
+     """
 
     def __init__(self, *args, **kwargs):
         """ initialize """

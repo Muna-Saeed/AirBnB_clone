@@ -1,5 +1,9 @@
 #!/usr/bin/python3
-""" base_model.py """
+"""
+base_model.py
+
+Module containing the BaseModel class, a fundamental class for object-relational mapping (ORM).
+"""
 
 import uuid
 from datetime import datetime
@@ -7,8 +11,27 @@ import models
 
 
 class BaseModel:
-    """ BaseModel class
      """
+    BaseModel class represents the base model for the ORM system.
+
+    Attributes:
+        - id (str): A unique identifier for each instance.
+        - created_at (datetime): The date and time when the instance was created.
+        - updated_at (datetime): The date and time when the instance was last updated.
+
+    Methods:
+        - __init__: Initializes a new instance of the BaseModel.
+        - load_from_dict: Loads attributes from a dictionary.
+        - save: Saves changes to the storage system.
+        - __str__: Returns a string representation of the object.
+        - to_dict: Converts the object to a dictionary.
+        - count: Returns the count of objects of the same class.
+        - all: Returns a list of string representations of all objects of the same class.
+        - show: Prints the string representation of the object with the provided ID.
+        - update: Updates the attribute of the object with the provided ID.
+        - get_object: Gets an object with the provided ID.
+        - destroy: Deletes the object with the provided ID.
+    """
 
     def __init__(self, *args, **kwargs):
         """ initialize """

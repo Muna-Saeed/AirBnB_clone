@@ -142,13 +142,17 @@ class BaseModel:
         print("** no instance found **")
 
     @classmethod
-    def update(cls, ids, dict_type):
+    def update(cls, ids, dict_type, val=None):
         if isinstance(dict_type, dict):
             for key, value in dict_type.items():
                 obj = cls.get_object(ids)
                 if obj:
                     models.storage.set_attr(obj, key, value)
-                    return
-                print("** no instance found **")
+                else:
+                    print("** no instance found **")
         else:
-            print("error not valid dictionnary")
+            obj = cls.get_object(ids)
+            if obj:
+                models.storage.set_attr(obj, dict_type, val)
+                return
+            print("** no instance found **")

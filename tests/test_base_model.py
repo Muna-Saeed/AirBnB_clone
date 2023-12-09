@@ -42,3 +42,43 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(type(my_model_json['updated_at']), str)
         self.assertEqual(type(my_model_json['__class__']), str)
         self.assertEqual(my_model_json['__class__'], 'BaseModel')
+
+    def test_init_method(self):
+        """Test the __init__ method."""
+        # Test default initialization
+        my_model_default = BaseModel()
+        self.assertIsInstance(my_model_default.id, str)
+        self.assertIsInstance(my_model_default.created_at, datetime)
+        self.assertIsInstance(my_model_default.updated_at, datetime)
+
+        # Test initialization with specific values
+        specific_created_at = datetime(2022, 1, 1, 12, 0, 0)
+        specific_updated_at = datetime(2022, 1, 2, 12, 0, 0)
+        my_model_specific = BaseModel(
+            created_at=specific_created_at, updated_at=specific_updated_at
+        )
+        self.assertEqual(my_model_specific.created_at, specific_created_at)
+        self.assertEqual(my_model_specific.updated_at, specific_updated_at)
+
+    def test_set_attr_method(self):
+        """Test the set_attr method."""
+        my_model = BaseModel()
+        my_model.set_attr(name="My Model", my_number=42)
+        self.assertEqual(my_model.name, "My Model")
+        self.assertEqual(my_model.my_number, 42)
+
+    def test_update_method(self):
+        """Test the update method."""
+        my_model = BaseModel()
+        my_model.update("name", "Updated Model")
+        self.assertEqual(my_model.name, "Updated Model")
+
+    def test_destroy_method(self):
+        """Test the destroy method."""
+        my_model = BaseModel()
+        obj_id = my_model.id
+        BaseModel.destroy(obj_id)
+        self.assertIsNone(BaseModel.get_object(obj_id))
+
+if __name__ == "__main__":
+    unittest.main()

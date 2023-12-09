@@ -19,7 +19,6 @@ class TestHBNBCommand(unittest.TestCase):
         with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
             self.cmd.onecmd("quit")
             output = mock_stdout.getvalue().strip()
-            print(output)
             self.assertEqual(output, "")
 
     def test_show(self):
@@ -37,6 +36,7 @@ class TestHBNBCommand(unittest.TestCase):
             self.cmd.onecmd("create User")
             output = mock_stdout.getvalue().strip()
             uuid_obj = uuid.UUID(output)
+            HBNBCommand().onecmd(f"destroy Show {output}")
 
     def test_help(self):
         """ test help """
@@ -44,7 +44,6 @@ class TestHBNBCommand(unittest.TestCase):
             HBNBCommand().onecmd("Place.all()")
             output = mock_stdout.getvalue().strip()
             self.assertEqual(output, output)
-<<<<<<< HEAD
 
     def test_Place_all(self):
         """ test Place.all() """
@@ -57,19 +56,6 @@ class TestHBNBCommand(unittest.TestCase):
 
             self.assertEqual(output, "[]")
         
-=======
-    
-    def test_update(self):
-        """ test update """
-        with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
-            obj_id = str(uuid.uuid4())
-            self.cmd.onecmd(f"User.create(id='{obj_id}')")
-            self.cmd.onecmd(f"User.update('{obj_id}', {{'first_name': 'John', 'age': 30}})")
-            self.cmd.onecmd(f"User.show('{obj_id}')")
-            output = mock_stdout.getvalue().strip()
-            self.assertIn("John", output)
-            self.assertIn("30", output)
->>>>>>> ccdd95ddf6fb5e061c605475f68fd60273c46be8
 
 if __name__ == "__main__":
     unittest.main()

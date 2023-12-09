@@ -121,6 +121,25 @@ class HBNBCommand(cmd.Cmd):
         print("** class doesn't exist **")
         return False
 
+<<<<<<< HEAD
+    def do_update(self, arg):
+        """ update """
+        if arg:
+            args = arg.split()
+            ln = len(args)
+            if args[0] in globals():
+                if ln == 1:
+                    print("** instance id missing *")
+                elif ln == 2:
+                    print(" ** attribute name missing **")
+                elif ln == 3:
+                    print(" ** value missing **")
+                    return
+                else:
+                    obj = self.get_obj(args)
+                    if obj:
+                        storage.set_attr(obj, args[2], args[3])
+=======
     def do_update(self, args):
         """Update instance based on its ID with a dictionary representation"""
         if args:
@@ -152,6 +171,7 @@ class HBNBCommand(cmd.Cmd):
                     # Update the object attributes with the dictionary
                     storage.update_object(obj, update_dict)
                     obj.save()
+>>>>>>> ccdd95ddf6fb5e061c605475f68fd60273c46be8
             else:
                 print("** class doesn't exist **")
         else:

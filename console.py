@@ -127,7 +127,7 @@ class HBNBCommand(cmd.Cmd):
             ln = len(args)
             if args[0] in globals():
                 if ln == 1:
-                    print("** instance id missing *")
+                    print("** instance id missing **")
                 elif ln == 2:
                     print("** attribute name missing **")
                 elif ln == 3:

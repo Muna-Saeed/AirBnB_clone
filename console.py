@@ -115,7 +115,7 @@ class HBNBCommand(cmd.Cmd):
                 sp = key.split(".")
                 if (sp[1] == ls[1]) and sp[0] == ls[0]:
                     return all[key]
-            print("**no instance found **")
+            print("** no instance found **")
             return
         print("** class doesn't exist **")
         return False
@@ -129,14 +129,12 @@ class HBNBCommand(cmd.Cmd):
                 if ln == 1:
                     print("** instance id missing *")
                 elif ln == 2:
-                    print(" ** attribute name missing **")
+                    print("** attribute name missing **")
                 elif ln == 3:
-                    print(" ** value missing **")
+                    print("** value missing **")
                     return
                 else:
-                    obj = self.get_obj(args)
-                    if obj:
-                        storage.set_attr(obj, args[2], args[3])
+                    globals()[args[0]].update(args[1], args[2], args[3])
             else:
                 print("** class doesn't exist **")
         else:
@@ -187,7 +185,7 @@ class HBNBCommand(cmd.Cmd):
             if args:
                 eval(f"{st}{args}")
             else:
-                print(" ** attribute missing **")
+                print("** attribute missing **")
         except Exception as e:
             print(e)
 

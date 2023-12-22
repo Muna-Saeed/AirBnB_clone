@@ -62,3 +62,12 @@
 .places article .information .number_bathrooms {
   background-image: url('../images/icon_bath.png');
 }
+
+.places article .user {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.places article .description {
+  margin-top: 10px;
+}

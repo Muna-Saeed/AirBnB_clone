@@ -1,0 +1,27 @@
+footer {
+    background-color: white;
+    height: 60px;
+    width: 100%;
+    border-top: 1px solid #CCCCCC;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+}
+
+@media (max-height: 500px) {
+    footer {
+        position: static; /* Remove fixed positioning */
+    }
+}
+
+/* Accessibility Improvements */
+
+footer p {
+    /* Styling for text content within the footer */
+    color: #333333; /* Adjust color for better contrast */
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+}

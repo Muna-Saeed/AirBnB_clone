@@ -1,0 +1,29 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Circular, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #484848;
+}
+
+.container {
+    max-width: 100%;
+    margin: 30px;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+/* Accessibility Improvements */
+
+a.skip-link {
+    position: fixed;
+    top: -40px;
+    left: 10px;
+    background-color: #fff;
+    padding: 10px;
+    z-index: 9999;
+}
+
+a.skip-link:focus {
+    top: 10px;
+}
